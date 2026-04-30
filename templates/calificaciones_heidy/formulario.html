@@ -11,16 +11,20 @@
         h2 { color: #0c4b33; margin-bottom: 1.5rem; }
         .card { background: white; padding: 2rem; border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(0,0,0,.08); }
-        label { display: block; margin-bottom: .25rem; font-size: .9rem; color: #555; }
+        label { display: block; margin-bottom: .25rem; font-size: .9rem; color: #555; font-weight: 500; }
         .form-control { width: 100%; padding: .6rem .8rem; border: 1px solid #ccc;
-                        border-radius: 6px; margin-bottom: .25rem; font-size: 1rem; box-sizing: border-box; }
-        .errorlist { color: #c0392b; font-size: .82rem; margin: 0 0 .75rem; padding-left: 1rem; }
-        .form-group { margin-bottom: 1rem; }
+                        border-radius: 6px; margin-bottom: .5rem; font-size: 1rem; box-sizing: border-box; }
+        .form-control:focus { outline: none; border-color: #0c4b33; box-shadow: 0 0 0 3px rgba(12, 75, 51, 0.1); }
+        .errorlist { color: #c0392b; font-size: .82rem; margin: 0 0 .75rem; padding-left: 1rem; list-style: none; }
+        .form-group { margin-bottom: 1.2rem; }
         .acciones { display: flex; gap: 1rem; margin-top: 1.5rem; }
         .btn { padding: .6rem 1.4rem; border-radius: 6px; border: none;
-               font-size: .95rem; cursor: pointer; text-decoration: none; }
+               font-size: .95rem; cursor: pointer; text-decoration: none; transition: all 0.2s; }
         .btn-primary { background: #0c4b33; color: white; }
+        .btn-primary:hover { background: #0a3a28; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,.15); }
         .btn-secondary { background: #95a5a6; color: white; }
+        .btn-secondary:hover { background: #7f8c8d; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+        .icono { margin-right: .5rem; }
     </style>
 </head>
 <body>
@@ -28,9 +32,14 @@
     <a href="{% url 'calificaciones_heidy:lista' %}">← Volver al listado</a>
 </header>
 <main>
-    <h2>{{ titulo }}</h2>
+    <h2>
+        <span class="icono">
+            {% if 'Nueva' in titulo %}📝{% else %}✏️{% endif %}
+        </span>
+        {{ titulo }}
+    </h2>
     <div class="card">
-        <form method="post">
+        <form method="post" novalidate>
             {% csrf_token %}
             {% for field in form %}
             <div class="form-group">
@@ -41,10 +50,13 @@
                         {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
                     </ul>
                 {% endif %}
+                {% if field.help_text %}
+                    <small style="color: #999; display: block; margin-top: .25rem;">{{ field.help_text|safe }}</small>
+                {% endif %}
             </div>
             {% endfor %}
             <div class="acciones">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar calificación</button>
                 <a href="{% url 'calificaciones_heidy:lista' %}" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
