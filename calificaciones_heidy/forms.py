@@ -1,3 +1,9 @@
+"""
+Formularios de la aplicación calificaciones_heidy.
+
+Define CalificacionForm basado en ModelForm con validaciones personalizadas.
+"""
+
 from django import forms
 from .models import Calificacion
 
