@@ -1,3 +1,10 @@
+"""
+Vistas de la aplicación calificaciones_heidy.
+
+Todas las vistas requieren autenticación mediante @login_required.
+Las rutas no autenticadas redirigen a LOGIN_URL (/login/).
+"""
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg
