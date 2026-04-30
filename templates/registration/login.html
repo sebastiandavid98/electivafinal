@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — Evaluaciones</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5;
+               display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 2.5rem; border-radius: 10px;
+                box-shadow: 0 4px 16px rgba(0,0,0,.1); width: 100%; max-width: 380px; }
+        h2 { color: #0c4b33; margin-bottom: 1.5rem; text-align: center; }
+        label { display: block; margin-bottom: .25rem; font-size: .9rem; color: #555; }
+        input { width: 100%; padding: .6rem .8rem; border: 1px solid #ccc;
+                border-radius: 6px; margin-bottom: 1rem; font-size: 1rem; box-sizing: border-box; }
+        button { width: 100%; padding: .75rem; background: #0c4b33; color: white;
+                 border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+        button:hover { background: #1a7a52; }
+        .error { color: #c0392b; font-size: .85rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>🔐 Iniciar sesión</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p class="error">Usuario o contraseña incorrectos. Intenta de nuevo.</p>
+        {% endif %}
+        <label for="id_username">Usuario</label>
+        {{ form.username }}
+        <label for="id_password">Contraseña</label>
+        {{ form.password }}
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+</body>
+</html>
