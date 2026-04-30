@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar eliminación</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; }
+        header { background: #0c4b33; color: white; padding: 1rem 2rem; }
+        header a { color: #a8d5b5; text-decoration: none; }
+        main { max-width: 480px; margin: 3rem auto; padding: 0 1rem; }
+        .card { background: white; padding: 2rem; border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0,0,0,.08); text-align: center; }
+        h2 { color: #c0392b; margin-bottom: 1rem; }
+        p { color: #555; margin-bottom: 1.5rem; }
+        .acciones { display: flex; gap: 1rem; justify-content: center; }
+        .btn { padding: .6rem 1.4rem; border-radius: 6px; border: none;
+               font-size: .95rem; cursor: pointer; text-decoration: none; }
+        .btn-danger   { background: #c0392b; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+    </style>
+</head>
+<body>
+<header>
+    <a href="{% url 'calificaciones_heidy:lista' %}">← Volver al listado</a>
+</header>
+<main>
+    <div class="card">
+        <h2>⚠️ Confirmar eliminación</h2>
+        <p>
+            ¿Estás seguro de que deseas eliminar la calificación de
+            <strong>{{ calificacion.nombre_estudiante }}</strong>
+            en <strong>{{ calificacion.asignatura }}</strong>?
+        </p>
+        <div class="acciones">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            </form>
+            <a href="{% url 'calificaciones_heidy:lista' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
