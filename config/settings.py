@@ -1,5 +1,7 @@
 """
 Django settings para el proyecto evaluaciones_heidy.
+
+Configuración centralizada para desarrollo y producción.
 """
 
 from pathlib import Path
