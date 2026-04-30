@@ -1,3 +1,9 @@
+"""
+Modelos de la aplicación calificaciones_heidy.
+
+Define el modelo Calificacion con cálculo automático de promedio.
+"""
+
 from decimal import Decimal, ROUND_HALF_UP
 from django.db import models
 
