@@ -6,6 +6,12 @@ Rutas registradas:
   /login/          → Login  (django.contrib.auth.views.LoginView)
   /logout/         → Logout (django.contrib.auth.views.LogoutView)
   /calificaciones/ → App calificaciones_heidy
+
+Sistema de autenticación:
+  - Usa vistas integradas de Django (django.contrib.auth.views)
+  - LOGIN_URL redirige a /login/ si no hay sesión
+  - LOGIN_REDIRECT_URL redirige a /calificaciones/ tras login exitoso
+  - LOGOUT_REDIRECT_URL redirige a /login/ tras logout
 """
 
 from django.contrib import admin
