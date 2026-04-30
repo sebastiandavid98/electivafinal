@@ -10,9 +10,11 @@
         header a { color: #a8d5b5; text-decoration: none; font-size: .9rem; }
         main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
         h2 { color: #0c4b33; }
+        .controles { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap; }
         .btn { display: inline-block; padding: .5rem 1.2rem; border-radius: 6px;
                text-decoration: none; font-size: .9rem; cursor: pointer; border: none; }
         .btn-primary { background: #0c4b33; color: white; }
+        .btn-info { background: #3498db; color: white; }
         .btn-warning { background: #e67e22; color: white; }
         .btn-danger  { background: #c0392b; color: white; }
         table { width: 100%; border-collapse: collapse; background: white;
@@ -20,8 +22,14 @@
         th { background: #0c4b33; color: white; padding: .75rem 1rem; text-align: left; font-size: .9rem; }
         td { padding: .7rem 1rem; border-bottom: 1px solid #eee; font-size: .9rem; }
         tr:last-child td { border-bottom: none; }
+        tfoot td { background: #ecf0f1; font-weight: bold; color: #0c4b33; padding: 1rem; }
         .promedio { font-weight: bold; color: #0c4b33; }
         .acciones { display: flex; gap: .5rem; }
+        .resumen { background: white; padding: 1.5rem; border-radius: 8px;
+                   box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-top: 1rem; text-align: center; }
+        .resumen-item { display: inline-block; margin: 0 2rem; }
+        .resumen-valor { font-size: 2rem; font-weight: bold; color: #0c4b33; }
+        .resumen-etiqueta { color: #666; font-size: .9rem; }
     </style>
 </head>
 <body>
@@ -33,7 +41,10 @@
 </header>
 <main>
     <h2>Calificaciones registradas</h2>
-    <a href="{% url 'calificaciones_heidy:crear' %}" class="btn btn-primary">+ Nueva calificación</a>
+    <div class="controles">
+        <a href="{% url 'calificaciones_heidy:crear' %}" class="btn btn-primary">+ Nueva calificación</a>
+        <a href="{% url 'calificaciones_heidy:promedio_general' %}" class="btn btn-info">📊 Ver promedio general</a>
+    </div>
 
     {% if calificaciones %}
     <table>
@@ -68,6 +79,18 @@
             </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">Promedio general del sistema:</td>
+                <td colspan="2" class="promedio">
+                    {% if promedio_general %}
+                        {{ promedio_general|floatformat:2 }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+        </tfoot>
     </table>
     {% else %}
         <p style="margin-top:1.5rem; color:#666;">No hay calificaciones registradas aún.</p>

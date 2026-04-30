@@ -17,4 +17,6 @@ urlpatterns = [
     path('<int:pk>/editar/', views.editar_calificacion, name='editar'),
     # Eliminar calificación
     path('<int:pk>/eliminar/', views.eliminar_calificacion, name='eliminar'),
+    # Promedio general
+    path('promedio-general/', views.promedio_general, name='promedio_general'),
 ]

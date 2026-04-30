@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promedio General</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; }
+        header { background: #0c4b33; color: white; padding: 1rem 2rem; }
+        header a { color: #a8d5b5; text-decoration: none; }
+        main { max-width: 600px; margin: 3rem auto; padding: 0 1rem; }
+        .card { background: white; padding: 3rem; border-radius: 10px;
+                box-shadow: 0 2px 12px rgba(0,0,0,.1); text-align: center; }
+        h2 { color: #0c4b33; margin-bottom: 2rem; font-size: 1.8rem; }
+        .promedio-display { 
+            background: linear-gradient(135deg, #0c4b33 0%, #0d6b47 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .promedio-valor { 
+            font-size: 4rem; 
+            font-weight: bold; 
+            margin: 0;
+        }
+        .promedio-etiqueta { 
+            font-size: 1.1rem; 
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+        .estadisticas {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #0c4b33;
+        }
+        .stat-label { 
+            color: #666; 
+            font-size: .9rem; 
+            margin-bottom: .5rem;
+        }
+        .stat-value { 
+            font-size: 1.8rem; 
+            font-weight: bold; 
+            color: #0c4b33;
+        }
+        .acciones { 
+            display: flex; 
+            gap: 1rem; 
+            justify-content: center; 
+            margin-top: 2rem;
+        }
+        .btn { 
+            display: inline-block;
+            padding: .7rem 1.5rem; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-size: .95rem; 
+            cursor: pointer; 
+            border: none;
+        }
+        .btn-primary { background: #0c4b33; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .nota-info {
+            background: #e8f4f8;
+            color: #0c5a7a;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+            font-size: .9rem;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="{% url 'calificaciones_heidy:lista' %}">← Volver al listado</a>
+</header>
+<main>
+    <div class="card">
+        <h2>📊 Promedio General del Sistema</h2>
+        
+        <div class="promedio-display">
+            {% if promedio %}
+                <p class="promedio-valor">{{ promedio|floatformat:2 }}</p>
+                <p class="promedio-etiqueta">Media de todos los promedios</p>
+            {% else %}
+                <p class="promedio-valor">—</p>
+                <p class="promedio-etiqueta">Sin calificaciones registradas</p>
+            {% endif %}
+        </div>
+
+        <div class="estadisticas">
+            <div class="stat-item">
+                <div class="stat-label">Total de calificaciones registradas</div>
+                <div class="stat-value">{{ total_calificaciones }}</div>
+            </div>
+        </div>
+
+        {% if not promedio %}
+        <div class="nota-info">
+            ℹ️ No hay calificaciones registradas. El promedio se calculará una vez que agregues datos al sistema.
+        </div>
+        {% else %}
+        <div class="nota-info">
+            ℹ️ Este promedio se calcula automáticamente usando la base de datos, 
+            considerando todos los promedios individuales registrados.
+        </div>
+        {% endif %}
+
+        <div class="acciones">
+            <a href="{% url 'calificaciones_heidy:lista' %}" class="btn btn-primary">Ir al listado completo</a>
+            <a href="{% url 'calificaciones_heidy:crear' %}" class="btn btn-secondary">+ Nueva calificación</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
